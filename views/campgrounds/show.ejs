@@ -1,0 +1,64 @@
+<%- include("../partials/header") %>
+
+ <div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <p class="lead">YalpCamp</p>
+            <div class="list-group">
+                <li class="list-group-item">Info 1</li>
+                <li class="list-group-item">Info 2</li>
+                <li class="list-group-item">Info 3</li>
+            </div>
+            <a href="/campgrounds">Go to campgrounds</a>
+        </div>
+        <div class="col-md-9">
+            <div class="img-thumbnail">
+                <img class="img-responsive" src="<%=foundCamp.image%>">
+                <div class="caption-full">
+                    <h4 class="float-right">$<%=foundCamp.price%>/night</h4>
+                    <h4><a href="#"><%= foundCamp.name%></a></h4>
+                    <p><%=foundCamp.description%></p>
+                   <p><em>submitted by: <%=foundCamp.aurthor.username%></em></p>
+                   <% if(currentUser && foundCamp.aurthor.id.equals(currentUser._id)) { %>
+                        <a class="btn btn-warning btn-sm" href="/campgrounds/<%=foundCamp._id%>/update/new">Update</a>
+                        <form style="display: inline;" method="POST" action="/campgrounds/<%=foundCamp._id%>?_method=DELETE">
+                            <button class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                   <% }%>
+                    
+                </div>
+            </div>
+            <br>
+
+            <div class="card card-body bg-secondary text-white"> 
+               <div class="text-right">
+                <a class="btn btn-success btn-large" href="/campgrounds/<%=foundCamp._id %>/comments/new"><strong>Leave a Review</strong></a>
+               </div>
+               <hr>
+                <% foundCamp.comment.map((comment)=>{ %>
+                    <div class="row">
+                        <div class="col-md-12">
+                           <strong><%=comment.aurthor.username%></strong>
+                            
+                            <span class="float-right"><%= comment.created.toLocaleDateString("en-US", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' } ) %> </span>
+                            <p><%=comment.text%></p>
+                        
+                            <% if(currentUser && comment.aurthor.id.equals(currentUser._id)){ %>
+                           <span class="float-right">
+                                <a href="/campgrounds/<%=foundCamp._id %>/comments/<%=comment._id%>/edit" class="btn btn-sm btn-warning">Edit</a>
+                                <form style="display: inline;" method="POST" action="/campgrounds/<%=foundCamp._id%>/comments/<%=comment._id%>?_method=DELETE">
+                                    <button class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </span>
+                           
+                            <% } %>
+                        </div>
+                    </div>
+                    
+                <% }) %>
+            </div>
+        </div>
+    </div>
+ </div>
+
+<%- include("../partials/footer") %>
