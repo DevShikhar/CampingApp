@@ -20,7 +20,7 @@ const campRoutes      =   require("./routes/campgrounds"),
 
 
 require('dotenv').config();  
-mongoose.connect('mongodb://localhost:27017/yalpCamp', {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
+mongoose.connect(process.env.URL, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(__dirname + "/public"))
 app.set("view engine","ejs");
