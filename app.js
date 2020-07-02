@@ -21,7 +21,7 @@ const campRoutes      =   require("./routes/campgrounds"),
 
 require('dotenv').config();  
 var url = "mongodb+srv://shikhar_user1:"+ process.env.DBKEY +"@cluster0.mtyig.mongodb.net/Cluster0?retryWrites=true&w=majority"
-mongoose.connect(process.env.URL, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
+mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(__dirname + "/public"))
 app.set("view engine","ejs");
