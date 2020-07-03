@@ -20,7 +20,8 @@ const campRoutes      =   require("./routes/campgrounds"),
 
 
 require('dotenv').config();  
-var url = "mongodb+srv://shikhar_user1:yalpcamp@cluster0.mtyig.mongodb.net/Cluster0?retryWrites=true&w=majority"
+var dbkey = process.env.DBKEY;
+var url = `mongodb+srv://shikhar_user1:${dbkey}@cluster0.mtyig.mongodb.net/Cluster0?retryWrites=true&w=majority`
 mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(__dirname + "/public"))
